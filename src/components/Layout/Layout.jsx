@@ -1,12 +1,17 @@
 import { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { StyledContainer, StyledHeader, StyledNavLink } from "./Layout.styled";
+import {
+  StyledContainer,
+  StyledHeader,
+  StyledNavLink,
+  StyledWrapper,
+} from "./Layout.styled";
 
 const Layout = () => {
   const location = useLocation();
   const from = location?.state?.from ?? "/";
   return (
-    <>
+    <StyledContainer>
       <StyledHeader>
         <nav>
           <ul>
@@ -21,15 +26,12 @@ const Layout = () => {
           </ul>
         </nav>
       </StyledHeader>
-      <StyledContainer>
-        <main>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
-        </main>
-        <footer></footer>
-      </StyledContainer>
-    </>
+      <StyledWrapper>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </StyledWrapper>
+    </StyledContainer>
   );
 };
 

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import {
   selectIsLoading,
   selectError,
@@ -7,6 +8,7 @@ import {
 } from "../../redux/warehouses/selectors";
 import { fetchWarehouses } from "../../redux/warehouses/operations";
 import { useEffect } from "react";
+import SearchForm from "../../components/SearchForm/SearchForm";
 
 const body = {
   apiKey: "467661ce29e9281de136f9994193b7e7",
@@ -25,19 +27,25 @@ const Warehouses = () => {
   const currentPage = useSelector(selectCurrentPage);
   const error = useSelector(selectError);
   const { data, info } = useSelector(selectWarehouses);
-  console.log(info.totalCount);
+  console.log(info?.totalCount);
 
   useEffect(() => {
     dispatch(fetchWarehouses(body));
   }, [dispatch]);
 
   return (
-    <ul>
-      {info.totalCount}
-      {data?.map((warehouse) => {
-        return <li key={warehouse.Ref}>{warehouse.Ref}</li>;
-      })}
-    </ul>
+    <HelmetProvider>
+      <Helmet>
+        <title>Warehouses</title>
+      </Helmet>
+      <SearchForm label={"Введіть населений пункт"} />
+      <ul>
+        {info?.totalCount}
+        {data?.map((warehouse) => {
+          return <li key={warehouse.Ref}>{warehouse.Ref}</li>;
+        })}
+      </ul>
+    </HelmetProvider>
   );
 };
 
