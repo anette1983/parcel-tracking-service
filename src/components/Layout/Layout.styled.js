@@ -1,10 +1,25 @@
 import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 
-export const StyledContainer = styled.div`
+export const StyledContainer = styled.main`
   max-width: 1280px;
   margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+`;
+
+export const StyledWrapper = styled.div`
+  /* max-width: 1280px;
+  margin: 0 auto; */
   padding: 0 16px;
+
+  /* display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden; */
 `;
 
 export const StyledHeader = styled.header`

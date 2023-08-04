@@ -11,31 +11,31 @@ import {
   REGISTER,
 } from "redux-persist";
 import { warehousesReducer } from "./warehouses/warehousesSlice";
-// import { parcelsReducer } from "./parcels/parcelsSlice";
+import { parcelsReducer } from "./parcels/parcelsSlice";
 
 const warehousesPersistConfig = {
   key: "warehouses",
   storage,
 };
 
-// const parcelsPersistConfig = {
-//   key: "parcels",
-//   storage,
-// };
+const parcelsPersistConfig = {
+  key: "parcels",
+  storage,
+};
 
 const persistedReducer = persistReducer(
   warehousesPersistConfig,
   warehousesReducer
 );
-// const persistedParcelsReducer = persistReducer(
-//   parcelsPersistConfig
-//   parcelsReducer
-// );
+const persistedParcelsReducer = persistReducer(
+  parcelsPersistConfig,
+  parcelsReducer
+);
 
 export const store = configureStore({
   reducer: {
     warehouses: persistedReducer,
-    // parcels: persistedParcelsReducer,
+    parcels: persistedParcelsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
