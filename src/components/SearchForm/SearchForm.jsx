@@ -25,16 +25,28 @@ const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
   const validate = () => {
     //  const value = "Your input string here";
     // let temp = {};
-    let parcel;
-    const regex = /^[25]\d{13}$/;
-    parcel = regex.test(value)
-      ? // && value.length === 14
-        ""
-      : "Номер має включати тільки 14 цифр і починатись з 2 або з 5";
-    // location = value ? "" : "This field is required!";
-    setError(parcel);
+    let errorText = "";
+    if (name === "parcel") {
+      const regex = /^[25]\d{13}$/;
+      errorText = regex.test(value)
+        ? // && value.length === 14
+          ""
+        : "Номер має включати тільки 14 цифр і починатись з 2 або з 5";
+      // location = value ? "" : "This field is required!";
+      setError(errorText);
+    } else if (name === "location") {
+      // const regex = /^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ'’]+$/;
+      const regex = /^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґ'’-]+$/;
+      errorText = regex.test(value)
+        ? // && value.length === 14
+          ""
+        : "Тільки літери українською мовою";
+      // location = value ? "" : "This field is required!";
+      setError(errorText);
+    }
+
     // return Object.values(temp).some((x) => x === "");
-    return parcel === "";
+    return errorText === "";
   };
 
   const handleChange = (evt) => setValue(evt.target.value);

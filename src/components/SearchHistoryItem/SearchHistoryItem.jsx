@@ -58,7 +58,7 @@ function SearchHistoryItem({ parcel }) {
     dispatch(fetchParcel(body));
     dispatch(setParcelsList(parcel));
     dispatch(setParcelQuery(parcel));
-    console.log("Клік на айтем");
+    
   };
 
   return (
