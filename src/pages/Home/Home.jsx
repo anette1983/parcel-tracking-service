@@ -1,40 +1,43 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import ParcelCard from "../../components/ParcelCard/ParcelCard";
-import SearchHistoryList from "../../components/SearchHistoryList/SearchHistoryList";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectError,
   selectIsLoading,
-  selectParcel,
   selectParcelQuery,
   selectParcelsList,
   selectSingleParcelData,
 } from "../../redux/parcels/selectors";
 import { fetchParcel } from "../../redux/parcels/operations";
 import {
+  deleteParcel,
   setParcelQuery,
   setParcelsList,
 } from "../../redux/parcels/parcelsSlice";
+import SearchHistoryList from "../../components/SearchHistoryList/SearchHistoryList";
+
 
 const Home = () => {
-  const query = useSelector(selectParcelQuery);
+  // const [isParcelCardVisible, setIsParcelCardVisible] = useState(true);
+  
   const isHistoryShown = useSelector(selectParcelsList)?.length !== 0;
   const dispatch = useDispatch();
-  const parcel = useSelector(selectParcel);
+
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const parcelQuery = useSelector(selectParcelQuery);
+  console.log(parcelQuery);
 
-  // const parcels = useSelector(selectParcelsList);
-  // console.log(parcel);
-  // console.log(parcels);
   const parcelInfo = useSelector(selectSingleParcelData);
   console.log(parcelInfo);
 
-  const parcelListData = useSelector(selectParcelsList);
-  console.log(parcelListData);
-
-  // const parcelInfo = data[0];
+  const handleParcelCardClose = () => {
+    // setIsParcelCardVisible(false);
+    dispatch(deleteParcel());
+    dispatch(setParcelQuery(""));
+  };
 
   const handleSearchFormSubmit = (value) => {
     const body = {
@@ -55,6 +58,7 @@ const Home = () => {
     dispatch(fetchParcel(body));
     dispatch(setParcelsList(value));
     dispatch(setParcelQuery(value));
+    // setIsParcelCardVisible(true);
   };
 
   return (
@@ -65,10 +69,14 @@ const Home = () => {
       <SearchForm
         label={"Введіть номер ТТН"}
         handleSearchFormSubmit={handleSearchFormSubmit}
+       
       />
       {isLoading && !error && <h3>Request in progress...</h3>}
       {error && <p>{error}</p>}
-      {query && <ParcelCard parcelInfo={parcelInfo} />}
+
+      {parcelQuery !== "" && (
+        <ParcelCard parcelInfo={parcelInfo} onClose={handleParcelCardClose} />
+      )}
       {isHistoryShown && <SearchHistoryList />}
     </HelmetProvider>
   );

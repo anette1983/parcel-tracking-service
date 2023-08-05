@@ -1,6 +1,10 @@
-import { Grid, List, Typography } from "@mui/material";
-import { SearchHistoryItem } from "../SearchHistoryItem/SearchHistoryItem";
+/* eslint-disable react-refresh/only-export-components */
+
+import List from "@mui/material/List";
+
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   selectError,
   selectFetchedParcelsList,
@@ -8,69 +12,73 @@ import {
   selectListParcelData,
   selectParcelsList,
 } from "../../redux/parcels/selectors";
-import { useEffect, useState } from "react";
 import { fetchParcelsList } from "../../redux/parcels/operations";
+import { Container, Typography } from "@mui/material";
+import SearchHistoryItem from "../SearchHistoryItem/SearchHistoryItem";
 
-const SearchHistoryList = () => {
+function SearchHistoryList() {
   const dispatch = useDispatch();
-  //  const data = useSelector(selectParcelsList);
-  //  console.log(data);
-
-  // const data = ["12345623456734", "12345623456735", "12345623456737"];
-  const data = useSelector(selectListParcelData);
-  const phone = "380633899529";
+  const data = useSelector(selectParcelsList);
+  console.log(data);
+  //   const phone = "380633899529";
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const [documentsArray, setDocumentsArray] = useState([]);
-  const [fetchedData, setFetchedData] = useState([]);
-  console.log(fetchedData);
-  console.log(documentsArray);
-  const fetchedList = useSelector(selectFetchedParcelsList);
-  console.log(fetchedList);
 
-  useEffect(() => {
-    const transformedData = data.map((parcelNum) => ({
-      DocumentNumber: parcelNum,
-      Phone: phone,
-    }));
+  //   const [documentsArray, setDocumentsArray] = useState([]);
+  //   const [fetchedData, setFetchedData] = useState([]);
+  //   console.log(fetchedData);
+  //   console.log(documentsArray);
+  //   const fetchedList = useSelector(selectFetchedParcelsList);
+  //   console.log(fetchedList);
 
-    setDocumentsArray(transformedData);
-  }, [data, phone]);
+  //   useEffect(() => {
+  //     const transformedData = data.map((parcelNum) => ({
+  //       DocumentNumber: parcelNum,
+  //       Phone: phone,
+  //     }));
 
-  useEffect(() => {
-    const body = {
-      apiKey: "467661ce29e9281de136f9994193b7e7",
-      modelName: "TrackingDocument",
-      calledMethod: "getStatusDocuments",
-      methodProperties: {
-        Documents: documentsArray,
-      },
-    };
-    console.log(body);
-    const info = dispatch(fetchParcelsList(body));
-    setFetchedData(info);
-  }, [dispatch, documentsArray]);
+  //     setDocumentsArray(transformedData);
+  //   }, [data, phone]);
+
+  //   useEffect(() => {
+  //     const body = {
+  //       apiKey: "467661ce29e9281de136f9994193b7e7",
+  //       modelName: "TrackingDocument",
+  //       calledMethod: "getStatusDocuments",
+  //       methodProperties: {
+  //         Documents: documentsArray,
+  //       },
+  //     };
+  //     console.log(body);
+  //     const info = dispatch(fetchParcelsList(body));
+  //     setFetchedData(info);
+  //   }, [dispatch, documentsArray]);
 
   return (
     <>
-      <Typography ml={2}> Історія пошуку: </Typography>
-      {isLoading && !error && <h3>Request in progress...</h3>}
-      {error && <p>{error}</p>}
+      <Typography m={3}> Історія пошуку: </Typography>
       <List
         sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          flexWrap: { xs: "wrap", md: "nowrap" },
+          width: "80%",
+          maxWidth: 720,
+          bgcolor: "background.paper",
         }}
+        // sx={{
+        //   display: "flex",
+        //   alignItems: "flex-start",
+        //   flexWrap: { xs: "wrap", md: "nowrap" },
+        // }}
       >
-        {fetchedList.map((item) => (
-          <SearchHistoryItem key={item.Number} parcel={item} />
-          // <div key={item.Number}>{item.Number}</div>
+        {/* {filtered.map((contact) => {
+          return <ContactsItem key={contact.id} contact={contact} />;
+        })} */}
+        {data.map((item) => (
+          <SearchHistoryItem key={item} parcel={item} />
         ))}
       </List>
     </>
   );
-};
+}
 
-export default SearchHistoryList;
+export default memo(SearchHistoryList);

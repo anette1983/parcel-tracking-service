@@ -28,6 +28,16 @@ export const parcelsSlice = createSlice({
       }
       state.parcelsList = [...state.parcelsList, action.payload];
     },
+    deleteParcelFromList: (state, action) => {
+      state.parcelsList = state.parcelsList.filter(
+        (parcel) => parcel !== action.payload
+      );
+    },
+    deleteParcel: (state) => {
+      state.parcel = {};
+
+    },
+
     clearParcelsList: (state) => {
       state.parcelsList = [];
     },
@@ -66,6 +76,8 @@ export const {
   setCurrentPage,
   setParcelsList,
   clearParcelsList,
+  deleteParcel,
+  deleteParcelFromList,
 } = parcelsSlice.actions;
 
 export const parcelsReducer = parcelsSlice.reducer;
