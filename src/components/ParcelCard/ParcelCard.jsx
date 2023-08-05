@@ -32,7 +32,7 @@ const ExpandMore = styled((props) => {
 }));
 
 // eslint-disable-next-line react/prop-types
-export default function ParcelCard({ parcelInfo }) {
+export default function ParcelCard({ parcelInfo, onClose }) {
   const [expanded, setExpanded] = React.useState(false);
 
   console.log(parcelInfo);
@@ -61,6 +61,7 @@ export default function ParcelCard({ parcelInfo }) {
     StatusCode,
   } = parcelInfo;
   console.log(Number);
+  const isDataAvailable = StatusCode === "3";
 
   // console.log(DateCreated);
 
@@ -71,19 +72,20 @@ export default function ParcelCard({ parcelInfo }) {
   // console.log(formattedDate);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: "80%", maxWidth: 720 }}>
       <CardHeader
         action={
-          <IconButton aria-label="close window">
+          <IconButton aria-label="close window" onClick={onClose}>
             <CloseOutlinedIcon />
           </IconButton>
         }
         title={Number}
-        subheader={StatusCode === "3" ? "Відправлення не знайдено" : Status}
+        subheader={isDataAvailable ? "Відправлення не знайдено" : Status}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Дата доставки: {ScheduledDeliveryDate}
+          Дата доставки:{" "}
+          {ScheduledDeliveryDate ? ScheduledDeliveryDate : "Немає даних"}
         </Typography>
       </CardContent>
       <Divider variant="middle" />
@@ -102,15 +104,20 @@ export default function ParcelCard({ parcelInfo }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Divider>Відправлено</Divider>
-          <Typography>{SenderAddress}</Typography>
+          <Typography>
+            {SenderAddress ? SenderAddress : "Адреса: немає даних"}
+          </Typography>
           <Typography paragraph variant="body2" color="text.secondary">
-            Дата відправки: {DateCreated}
+            Дата відправки: {DateCreated ? DateCreated : "Немає даних"}
           </Typography>
 
           <Divider>Отримано</Divider>
-          <Typography>{RecipientAddress}</Typography>
+          <Typography>
+            {RecipientAddress ? RecipientAddress : "Адреса: немає даних"}
+          </Typography>
           <Typography variant="body2" color="text.secondary">
-            Дата отримання: {RecipientDateTime}
+            Дата отримання:{" "}
+            {RecipientDateTime ? RecipientDateTime : "немає даних"}
           </Typography>
         </CardContent>
       </Collapse>

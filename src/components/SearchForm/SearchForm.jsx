@@ -1,13 +1,23 @@
 import { Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StyledForm from "./SearchForm.styled";
 import Button from "@mui/material/Button";
 // import { useDispatch } from "react-redux";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { useSelector } from "react-redux";
+import { selectParcelQuery } from "../../redux/parcels/selectors";
 
-const SearchForm = ({ label, handleSearchFormSubmit }) => {
+const SearchForm = ({ label, handleSearchFormSubmit}) => {
   // const dispatch = useDispatch();
+  const parcelQuery = useSelector(selectParcelQuery);
   const [value, setValue] = useState("");
+  
+   useEffect(() => {
+     setValue(parcelQuery);
+   }, [parcelQuery]);
+  
+  console.log(value);
+
   const handleChange = (evt) => setValue(evt.target.value);
 
   const handleSubmit = (evt) => {
@@ -17,13 +27,8 @@ const SearchForm = ({ label, handleSearchFormSubmit }) => {
       return;
     }
     handleSearchFormSubmit(value);
-    // const isParcelExists = parcels.some(
-    //   (parcel) => parcel.number === parcelNumber
-    // );
 
-    //   dispatch(addParcel(parcelNumber));
-    console.log(value);
-    setValue("");
+    setValue(value);
   };
 
   return (
