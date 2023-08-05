@@ -38,7 +38,7 @@ const Warehouses = () => {
       <Helmet>
         <title>Warehouses</title>
       </Helmet>
-      <SearchForm label={"Введіть населений пункт"} />
+      <SearchForm name={"location"} label={"Введіть населений пункт"} />
       <ul>
         {info?.totalCount}
         {data?.map((warehouse) => {
