@@ -9,6 +9,8 @@ import {
 import { fetchWarehouses } from "../../redux/warehouses/operations";
 import { useEffect } from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
+import { setCityQuery } from "../../redux/warehouses/warehousesSlice";
+import WarehousesList from "../../components/WarehousesList/WarehousesList";
 
 const body = {
   apiKey: "467661ce29e9281de136f9994193b7e7",
@@ -33,18 +35,40 @@ const Warehouses = () => {
     dispatch(fetchWarehouses(body));
   }, [dispatch]);
 
+  const handleSearchFormSubmit = (value) => {
+    const body = {
+      apiKey: "467661ce29e9281de136f9994193b7e7",
+      modelName: "Address",
+      calledMethod: "getWarehouses",
+      methodProperties: {
+        CityName: value,
+        Limit: "50",
+        Page: 1,
+      },
+    };
+    console.log(value);
+
+    dispatch(fetchWarehouses(body));
+    dispatch(setCityQuery(value));
+  };
+
   return (
     <HelmetProvider>
       <Helmet>
         <title>Warehouses</title>
       </Helmet>
-      <SearchForm label={"Введіть населений пункт"} />
-      <ul>
+      <SearchForm
+        name={"location"}
+        label={"Введіть населений пункт"}
+        handleSearchFormSubmit={handleSearchFormSubmit}
+      />
+      {/* <ul>
         {info?.totalCount}
         {data?.map((warehouse) => {
           return <li key={warehouse.Ref}>{warehouse.Ref}</li>;
         })}
-      </ul>
+      </ul> */}
+      <WarehousesList/>
     </HelmetProvider>
   );
 };

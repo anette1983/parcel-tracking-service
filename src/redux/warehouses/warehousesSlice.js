@@ -13,7 +13,7 @@ export const warehousesSlice = createSlice({
   name: "warehouses",
   initialState,
   reducers: {
-    changeCityQuery: (state, action) => {
+    setCityQuery: (state, action) => {
       state.cityQuery = action.payload;
     },
     setCurrentPage: (state, action) => {
@@ -37,5 +37,5 @@ export const warehousesSlice = createSlice({
   },
 });
 
-export const { changeCityQuery, setCurrentPage } = warehousesSlice.actions;
+export const { setCityQuery, setCurrentPage } = warehousesSlice.actions;
 export const warehousesReducer = warehousesSlice.reducer;

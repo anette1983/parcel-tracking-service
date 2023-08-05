@@ -67,8 +67,10 @@ const Home = () => {
         <title>Homepage</title>
       </Helmet>
       <SearchForm
+        name={"parcel"}
         label={"Введіть номер ТТН"}
         handleSearchFormSubmit={handleSearchFormSubmit}
+
        
       />
       {isLoading && !error && <h3>Request in progress...</h3>}
