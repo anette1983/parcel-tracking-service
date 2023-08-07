@@ -1,18 +1,11 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 import Divider from "@mui/material/Divider";
-
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useState } from "react";
-// import { toast } from "react-toastify";
 import { selectError, selectIsLoading } from "../../redux/parcels/selectors";
 import {
   deleteParcelFromList,
@@ -20,6 +13,7 @@ import {
   setParcelsList,
 } from "../../redux/parcels/parcelsSlice";
 import { fetchParcel } from "../../redux/parcels/operations";
+import { Tooltip } from "@mui/material";
 
 function SearchHistoryItem({ parcel }) {
   const isLoading = useSelector(selectIsLoading);
@@ -58,7 +52,6 @@ function SearchHistoryItem({ parcel }) {
     dispatch(fetchParcel(body));
     dispatch(setParcelsList(parcel));
     dispatch(setParcelQuery(parcel));
-    
   };
 
   return (
@@ -74,19 +67,20 @@ function SearchHistoryItem({ parcel }) {
         onClick={() => handleItemClick(parcel)}
         secondaryAction={
           <IconButton
-            // color='warning'
             edge="end"
             aria-label="delete"
             onClick={(event) => handleDelete(event, parcel)}
             disabled={delId === parcel}
           >
-            <DeleteIcon />
+            <Tooltip title="Видалити з історії">
+              <DeleteIcon />
+            </Tooltip>
           </IconButton>
         }
       >
         <ListItemText primary={"Номер відправлення:"} secondary={parcel} />
       </ListItem>
-      <Divider variant="inset" />
+      <Divider variant="middle" />
     </>
   );
 }

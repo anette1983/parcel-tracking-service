@@ -3,7 +3,7 @@ import { fetchWarehouses } from "./operations";
 
 const initialState = {
   warehouses: [],
-  cityQuery: "",
+  cityQuery: "Київ",
   currentPage: 1,
   isLoading: false,
   error: null,

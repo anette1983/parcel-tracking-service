@@ -15,9 +15,3 @@ export const selectSingleParcelData = (state) => {
   const singleParcelData = data[0];
   return singleParcelData;
 };
-
-export const selectListParcelData = (state) => {
-  const data = selectParcelsList(state);
-
-  return data;
-};

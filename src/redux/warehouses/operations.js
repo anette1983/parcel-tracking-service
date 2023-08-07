@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "../../services/api";
 
 export const fetchWarehouses = createAsyncThunk(
-  "warehouses/getWarehouses",
+  "warehouses/fetchWarehouses",
   async (body, thunkApi) => {
     try {
       const res = await getData(body);

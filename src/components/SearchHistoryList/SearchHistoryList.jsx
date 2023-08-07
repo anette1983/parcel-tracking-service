@@ -1,78 +1,54 @@
-/* eslint-disable react-refresh/only-export-components */
-
 import List from "@mui/material/List";
-
-import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  selectError,
-  selectFetchedParcelsList,
-  selectIsLoading,
-  selectListParcelData,
-  selectParcelsList,
-} from "../../redux/parcels/selectors";
-import { fetchParcelsList } from "../../redux/parcels/operations";
-import { Container, Typography } from "@mui/material";
+import { selectParcelsList } from "../../redux/parcels/selectors";
+import { Box, Button, Typography } from "@mui/material";
 import SearchHistoryItem from "../SearchHistoryItem/SearchHistoryItem";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
+import { clearParcelsList } from "../../redux/parcels/parcelsSlice";
 
 function SearchHistoryList() {
   const dispatch = useDispatch();
   const data = useSelector(selectParcelsList);
-  console.log(data);
-  //   const phone = "380633899529";
 
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
-
-  //   const [documentsArray, setDocumentsArray] = useState([]);
-  //   const [fetchedData, setFetchedData] = useState([]);
-  //   console.log(fetchedData);
-  //   console.log(documentsArray);
-  //   const fetchedList = useSelector(selectFetchedParcelsList);
-  //   console.log(fetchedList);
-
-  //   useEffect(() => {
-  //     const transformedData = data.map((parcelNum) => ({
-  //       DocumentNumber: parcelNum,
-  //       Phone: phone,
-  //     }));
-
-  //     setDocumentsArray(transformedData);
-  //   }, [data, phone]);
-
-  //   useEffect(() => {
-  //     const body = {
-  //       apiKey: "467661ce29e9281de136f9994193b7e7",
-  //       modelName: "TrackingDocument",
-  //       calledMethod: "getStatusDocuments",
-  //       methodProperties: {
-  //         Documents: documentsArray,
-  //       },
-  //     };
-  //     console.log(body);
-  //     const info = dispatch(fetchParcelsList(body));
-  //     setFetchedData(info);
-  //   }, [dispatch, documentsArray]);
+  const handleSubmit = () => {
+    console.log("clear list");
+    dispatch(clearParcelsList());
+  };
 
   return (
     <>
-      <Typography m={3}> Історія пошуку: </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "80%",
+          maxWidth: 720,
+        }}
+      >
+        <Typography variant="h6" component="h2" mt={3} mb={3} ml={2}>
+          {" "}
+          Історія пошуку{" "}
+        </Typography>
+        <Button
+          sx={{ height: 57, minWidth: "fit-content" }}
+          type="button"
+          variant="outlined"
+          startIcon={<HighlightOffOutlinedIcon />}
+          onClick={handleSubmit}
+        >
+          Очистити
+        </Button>
+      </Box>
       <List
         sx={{
           width: "80%",
           maxWidth: 720,
           bgcolor: "background.paper",
+          borderRadius: "4px",
         }}
-        // sx={{
-        //   display: "flex",
-        //   alignItems: "flex-start",
-        //   flexWrap: { xs: "wrap", md: "nowrap" },
-        // }}
       >
-        {/* {filtered.map((contact) => {
-          return <ContactsItem key={contact.id} contact={contact} />;
-        })} */}
         {data.map((item) => (
           <SearchHistoryItem key={item} parcel={item} />
         ))}
@@ -81,4 +57,4 @@ function SearchHistoryList() {
   );
 }
 
-export default memo(SearchHistoryList);
+export default SearchHistoryList;
