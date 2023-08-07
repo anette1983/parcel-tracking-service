@@ -4,9 +4,7 @@ import { fetchParcel, fetchParcelsList } from "./operations";
 const initialState = {
   parcel: {},
   parcelsList: [],
- 
   parcelQuery: "",
-  currentPage: 1,
   isLoading: false,
   error: null,
 };
@@ -35,7 +33,6 @@ export const parcelsSlice = createSlice({
     },
     deleteParcel: (state) => {
       state.parcel = {};
-
     },
 
     clearParcelsList: (state) => {

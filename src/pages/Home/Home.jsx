@@ -1,6 +1,7 @@
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import ParcelCard from "../../components/ParcelCard/ParcelCard";
+import Loader from "../../components/Loader/Loader";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,10 +27,8 @@ const Home = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const parcelQuery = useSelector(selectParcelQuery);
-  console.log(parcelQuery);
 
   const parcelInfo = useSelector(selectSingleParcelData);
-  console.log(parcelInfo);
 
   const handleParcelCardClose = () => {
     dispatch(deleteParcel());
@@ -50,7 +49,6 @@ const Home = () => {
         ],
       },
     };
-    console.log(value);
 
     dispatch(fetchParcel(body));
     dispatch(setParcelsList(value));
@@ -70,7 +68,7 @@ const Home = () => {
         label={"Введіть номер ТТН"}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
-      {isLoading && !error && <h3>Request in progress...</h3>}
+      {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
 
       {parcelQuery !== "" && (

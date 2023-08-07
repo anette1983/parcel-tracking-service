@@ -16,36 +16,31 @@ import {
 import WarehousesList from "../../components/WarehousesList/WarehousesList";
 import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
+import Loader from "../../components/Loader/Loader";
 
 const body = createBody("Київ");
 
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  const currentPage = useSelector(selectCurrentPage);
   const error = useSelector(selectError);
 
-  const { data, info } = useSelector(selectWarehouses);
-  console.log(info?.totalCount);
-  //*undef
-  console.log(body);
+  const { data } = useSelector(selectWarehouses);
 
   useEffect(() => {
     dispatch(fetchWarehouses(body));
     dispatch(setCityQuery(body.methodProperties.CityName));
+    // dispatch(setCityQuery(cityName));
   }, [dispatch]);
 
   const handleSearchFormSubmit = (value) => {
     const body = createBody(value);
-
-    console.log(body);
 
     dispatch(fetchWarehouses(body));
     dispatch(setCityQuery(value));
     dispatch(setCurrentPage(1));
   };
 
-  console.log(data);
 
   return (
     <HelmetProvider>
@@ -57,7 +52,7 @@ const Warehouses = () => {
         label={"Введіть населений пункт"}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
-      {isLoading && !error && <h3>Request in progress...</h3>}
+      {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
       <WarehousesList />
       {data && <Paginator />}

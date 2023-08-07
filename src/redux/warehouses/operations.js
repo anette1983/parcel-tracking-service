@@ -6,7 +6,6 @@ export const fetchWarehouses = createAsyncThunk(
   async (body, thunkApi) => {
     try {
       const res = await getData(body);
-      console.log(res);
 
       if (res.data?.length === "0") {
         throw new Error(`Вибачте, відділення відсутні!`);

@@ -12,7 +12,6 @@ function SearchHistoryList() {
   const data = useSelector(selectParcelsList);
 
   const handleSubmit = () => {
-    console.log("clear list");
     dispatch(clearParcelsList());
   };
 

@@ -26,8 +26,6 @@ const ExpandMore = styled((props) => {
 export default function ParcelCard({ parcelInfo, onClose }) {
   const [expanded, setExpanded] = React.useState(false);
 
-  console.log(parcelInfo);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -45,7 +43,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
     ScheduledDeliveryDate,
     StatusCode,
   } = parcelInfo;
-  console.log(Number);
+
   const isDataAvailable = StatusCode === "3";
 
   return (
