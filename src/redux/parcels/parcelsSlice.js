@@ -4,7 +4,7 @@ import { fetchParcel, fetchParcelsList } from "./operations";
 const initialState = {
   parcel: {},
   parcelsList: [],
-  fetchedParselsList: [],
+ 
   parcelQuery: "",
   currentPage: 1,
   isLoading: false,

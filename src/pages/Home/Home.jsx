@@ -17,11 +17,9 @@ import {
   setParcelsList,
 } from "../../redux/parcels/parcelsSlice";
 import SearchHistoryList from "../../components/SearchHistoryList/SearchHistoryList";
-
+import { Typography } from "@mui/material";
 
 const Home = () => {
-  // const [isParcelCardVisible, setIsParcelCardVisible] = useState(true);
-  
   const isHistoryShown = useSelector(selectParcelsList)?.length !== 0;
   const dispatch = useDispatch();
 
@@ -34,7 +32,6 @@ const Home = () => {
   console.log(parcelInfo);
 
   const handleParcelCardClose = () => {
-    // setIsParcelCardVisible(false);
     dispatch(deleteParcel());
     dispatch(setParcelQuery(""));
   };
@@ -58,20 +55,20 @@ const Home = () => {
     dispatch(fetchParcel(body));
     dispatch(setParcelsList(value));
     dispatch(setParcelQuery(value));
-    // setIsParcelCardVisible(true);
   };
 
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Homepage</title>
+        <title>Відправлення</title>
       </Helmet>
+      <Typography variant="h4" component="h1" mt={2} mb={2}>
+        Пошук відправлень
+      </Typography>
       <SearchForm
         name={"parcel"}
         label={"Введіть номер ТТН"}
         handleSearchFormSubmit={handleSearchFormSubmit}
-
-       
       />
       {isLoading && !error && <h3>Request in progress...</h3>}
       {error && <p>{error}</p>}

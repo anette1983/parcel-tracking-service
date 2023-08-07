@@ -2,22 +2,14 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Divider } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectParcel } from "../../redux/parcels/selectors";
-import { formatDate } from "../../utils/helpers";
-import moment from "moment";
+import { Divider, Tooltip } from "@mui/material";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,7 +23,6 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-// eslint-disable-next-line react/prop-types
 export default function ParcelCard({ parcelInfo, onClose }) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -47,13 +38,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
   const {
     Number,
     Status,
-    TrackingUpdateDate,
-    WarehouseSender,
     DateCreated,
-    WarehouseRecipient,
-    ActualDeliveryDate,
-    CitySender,
-    CityRecipient,
     RecipientAddress,
     RecipientDateTime,
     SenderAddress,
@@ -63,21 +48,23 @@ export default function ParcelCard({ parcelInfo, onClose }) {
   console.log(Number);
   const isDataAvailable = StatusCode === "3";
 
-  // console.log(DateCreated);
-
-  // const date = formatDate();
-  // console.log(date);
-
-  // const formattedDate = formatDate(DateCreated);
-  // console.log(formattedDate);
-
   return (
     <Card sx={{ width: "80%", maxWidth: 720 }}>
       <CardHeader
         action={
-          <IconButton aria-label="close window" onClick={onClose}>
-            <CloseOutlinedIcon />
-          </IconButton>
+          <Tooltip title="Закрити картку">
+            <IconButton
+              aria-label="close window"
+              onClick={onClose}
+              sx={{
+                "&:hover": {
+                  background: "#f0f0f0",
+                },
+              }}
+            >
+              <CloseOutlinedIcon />
+            </IconButton>
+          </Tooltip>
         }
         title={Number}
         subheader={isDataAvailable ? "Відправлення не знайдено" : Status}
@@ -98,12 +85,14 @@ export default function ParcelCard({ parcelInfo, onClose }) {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <Tooltip title="Показати деталі">
+            <ExpandMoreIcon />
+          </Tooltip>
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Divider>Відправлено</Divider>
+          <Divider variant="middle">Відправлено</Divider>
           <Typography>
             {SenderAddress ? SenderAddress : "Адреса: немає даних"}
           </Typography>
@@ -111,7 +100,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
             Дата відправки: {DateCreated ? DateCreated : "Немає даних"}
           </Typography>
 
-          <Divider>Отримано</Divider>
+          <Divider variant="middle">Отримано</Divider>
           <Typography>
             {RecipientAddress ? RecipientAddress : "Адреса: немає даних"}
           </Typography>

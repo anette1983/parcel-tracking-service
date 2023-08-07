@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 
 export const StyledContainer = styled.div`
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
 
   display: flex;
@@ -17,10 +17,6 @@ export const StyledWrapper = styled.main`
   min-width: 325px;
   padding: 0 16px;
 
-  /* display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow: hidden; */
 `;
 
 export const StyledHeader = styled.header`
@@ -31,6 +27,7 @@ export const StyledHeader = styled.header`
     1px 4px 6px rgba(0, 0, 0, 0.16);
   & ul {
     display: flex;
+    align-items: center;
   }
   & li {
     margin-right: 32px;
@@ -44,6 +41,6 @@ export const StyledNavLink = styled(NavLink)`
   padding-top: 16px;
   padding-bottom: 16px;
   &.active {
-    color: #471ca9;
+    color: #1976d2;
   }
 `;

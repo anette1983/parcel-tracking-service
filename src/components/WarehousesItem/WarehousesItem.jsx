@@ -1,102 +1,42 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-
 import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 import Divider from "@mui/material/Divider";
-
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-
-import { useState } from "react";
-// import { toast } from "react-toastify";
-import { selectError, selectIsLoading } from "../../redux/parcels/selectors";
-import {
-  deleteParcelFromList,
-  setParcelQuery,
-  setParcelsList,
-} from "../../redux/parcels/parcelsSlice";
-import { fetchParcel } from "../../redux/parcels/operations";
-import { ListItemButton } from "@mui/material";
+import { ListItemIcon, Tooltip } from "@mui/material";
+import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 function WarehousesItem({ warehouse }) {
-  //   const isLoading = useSelector(selectIsLoading);
-  //   const error = useSelector(selectError);
-  //   const [delId, setDelId] = useState();
-  //   const dispatch = useDispatch();
-
-  //   const handleDelete = (event, id) => {
-  //     event.stopPropagation();
-  //     setDelId(id);
-  //     dispatch(deleteParcelFromList(id));
-
-  //     console.log(id);
-  //     console.log("Клік на видалення");
-
-  //     alert(`Parcel deleted successfully`);
-  //     return;
-  //   };
-
-  //! по клику на айтем открывать модалку
-  //   const handleItemClick = (parcel) => {
-  //     const body = {
-  //       apiKey: "467661ce29e9281de136f9994193b7e7",
-  //       modelName: "TrackingDocument",
-  //       calledMethod: "getStatusDocuments",
-  //       methodProperties: {
-  //         Documents: [
-  //           {
-  //             DocumentNumber: parcel,
-  //             Phone: "380633899529",
-  //           },
-  //         ],
-  //       },
-  //     };
-  //     dispatch(fetchParcel(body));
-  //     dispatch(setParcelsList(parcel));
-  //     dispatch(setParcelQuery(parcel));
-  //   };
-
   return (
     <>
-      {/* {isLoading && !error && <h3>Request in progress...</h3>}
-      {error && <p>{error}</p>} */}
       <ListItem
+        secondaryAction={
+          <Tooltip title="Перейти на сторінку відділення">
+            <IconButton
+              edge="end"
+              aria-label="onWarehousePage"
+              component="a"
+              href={`https://novaposhta.ua/office/view/id/${warehouse.Number}/city/${warehouse.CityDescription}`}
+              target="_blank"
+            >
+              <ExitToAppIcon />
+            </IconButton>
+          </Tooltip>
+        }
         sx={{
           "&:hover": {
             background: "#f0f0f0",
           },
         }}
-        // onClick={() => handleItemClick(parcel)}
-        // secondaryAction={
-        //   <IconButton
-        //     // color='warning'
-        //     edge="end"
-        //     aria-label="delete"
-        //     onClick={(event) => handleDelete(event, parcel)}
-        //     disabled={delId === parcel}
-        //   >
-        //     <DeleteIcon />
-        //   </IconButton>
-        // }
       >
-        {/* <ListItemText
-          //   primary={"Номер відправлення:"}
-          primary={warehouse.Description}
-          secondary={`https://novaposhta.ua/office/view/id/${warehouse.Number}/city/${warehouse.CityDescription}`}
-        /> */}
-        <ListItemButton
-          component="a"
-          href={`https://novaposhta.ua/office/view/id/${warehouse.Number}/city/${warehouse.CityDescription}`}
-          target="_blank"
-        >
-          <ListItemText primary={warehouse.Description} />
-        </ListItemButton>
+        <ListItemIcon>
+          <HomeWorkIcon />
+        </ListItemIcon>
+
+        <ListItemText primary={warehouse.Description} />
       </ListItem>
-      <Divider variant="inset" />
+      <Divider variant="middle" />
     </>
   );
 }

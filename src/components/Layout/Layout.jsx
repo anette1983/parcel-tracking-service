@@ -7,6 +7,9 @@ import {
   StyledWrapper,
 } from "./Layout.styled";
 
+import SvgIcon from "@mui/material/SvgIcon";
+import { ReactComponent as NpIcon } from "../../images/nova_poshta.svg";
+
 const Layout = () => {
   const location = useLocation();
   const from = location?.state?.from ?? "/";
@@ -15,6 +18,11 @@ const Layout = () => {
       <StyledHeader>
         <nav>
           <ul>
+            <li>
+              <SvgIcon color="secondary" component={StyledNavLink} to="/">
+                <NpIcon />
+              </SvgIcon>
+            </li>
             <li>
               <StyledNavLink to="/">Знайти посилку</StyledNavLink>
             </li>

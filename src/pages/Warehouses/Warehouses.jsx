@@ -9,66 +9,58 @@ import {
 import { fetchWarehouses } from "../../redux/warehouses/operations";
 import { useEffect } from "react";
 import SearchForm from "../../components/SearchForm/SearchForm";
-import { setCityQuery } from "../../redux/warehouses/warehousesSlice";
+import {
+  setCityQuery,
+  setCurrentPage,
+} from "../../redux/warehouses/warehousesSlice";
 import WarehousesList from "../../components/WarehousesList/WarehousesList";
+import Paginator from "../../components/Paginator/Paginator";
+import { createBody } from "../../services/createBody";
 
-const body = {
-  apiKey: "467661ce29e9281de136f9994193b7e7",
-  modelName: "Address",
-  calledMethod: "getWarehouses",
-  methodProperties: {
-    CityName: "Київ",
-    Limit: "50",
-    Page: 1,
-  },
-};
+const body = createBody("Київ");
 
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const currentPage = useSelector(selectCurrentPage);
   const error = useSelector(selectError);
+
   const { data, info } = useSelector(selectWarehouses);
   console.log(info?.totalCount);
+  //*undef
+  console.log(body);
 
   useEffect(() => {
     dispatch(fetchWarehouses(body));
+    dispatch(setCityQuery(body.methodProperties.CityName));
   }, [dispatch]);
 
   const handleSearchFormSubmit = (value) => {
-    const body = {
-      apiKey: "467661ce29e9281de136f9994193b7e7",
-      modelName: "Address",
-      calledMethod: "getWarehouses",
-      methodProperties: {
-        CityName: value,
-        Limit: "50",
-        Page: 1,
-      },
-    };
-    console.log(value);
+    const body = createBody(value);
+
+    console.log(body);
 
     dispatch(fetchWarehouses(body));
     dispatch(setCityQuery(value));
+    dispatch(setCurrentPage(1));
   };
+
+  console.log(data);
 
   return (
     <HelmetProvider>
       <Helmet>
-        <title>Warehouses</title>
+        <title>Відділення</title>
       </Helmet>
       <SearchForm
         name={"location"}
         label={"Введіть населений пункт"}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
-      {/* <ul>
-        {info?.totalCount}
-        {data?.map((warehouse) => {
-          return <li key={warehouse.Ref}>{warehouse.Ref}</li>;
-        })}
-      </ul> */}
-      <WarehousesList/>
+      {isLoading && !error && <h3>Request in progress...</h3>}
+      {error && <p>{error}</p>}
+      <WarehousesList />
+      {data && <Paginator />}
     </HelmetProvider>
   );
 };
