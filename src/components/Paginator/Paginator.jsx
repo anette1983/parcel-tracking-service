@@ -15,7 +15,8 @@ import { createBody } from "../../services/createBody";
 export default function Paginator() {
   const currentPage = useSelector(selectCurrentPage);
 
-  const [page, setPage] = useState(currentPage);
+  // const [page, setPage] = useState(currentPage);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const { info } = useSelector(selectWarehouses);
 
@@ -28,9 +29,10 @@ export default function Paginator() {
     if (info && typeof info?.totalCount === "number") {
       const { totalCount } = info;
       setTotalPages(Math.ceil(totalCount / limit));
-      setPage(currentPage);
+      // setPage(currentPage);
+      setPage(page);
     }
-  }, [currentPage, info]);
+  }, [currentPage, info, page]);
 
   // useEffect(() => {
   //   setPage(currentPage);

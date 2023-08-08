@@ -41,7 +41,6 @@ const Warehouses = () => {
     dispatch(setCurrentPage(1));
   };
 
-
   return (
     <HelmetProvider>
       <Helmet>
@@ -54,7 +53,7 @@ const Warehouses = () => {
       />
       {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
-      <WarehousesList />
+      {!error && <WarehousesList />}
       {data && <Paginator />}
     </HelmetProvider>
   );

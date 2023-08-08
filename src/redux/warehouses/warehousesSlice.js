@@ -33,6 +33,7 @@ export const warehousesSlice = createSlice({
       .addCase(fetchWarehouses.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+        state.warehouses = [];
       });
   },
 });
