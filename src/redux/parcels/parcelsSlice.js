@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchParcel, fetchParcelsList } from "./operations";
+import { fetchParcel } from "./operations";
 
 const initialState = {
   parcel: {},
@@ -15,9 +15,6 @@ export const parcelsSlice = createSlice({
   reducers: {
     setParcelQuery: (state, action) => {
       state.parcelQuery = action.payload;
-    },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
     },
     setParcelsList: (state, action) => {
       const item = state.parcelsList.find((item) => item === action.payload);
@@ -52,25 +49,12 @@ export const parcelsSlice = createSlice({
       .addCase(fetchParcel.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      })
-      .addCase(fetchParcelsList.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchParcelsList.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        state.fetchedParselsList = action.payload;
-      })
-      .addCase(fetchParcelsList.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
       });
   },
 });
 
 export const {
   setParcelQuery,
-  setCurrentPage,
   setParcelsList,
   clearParcelsList,
   deleteParcel,

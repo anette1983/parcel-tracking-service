@@ -5,17 +5,13 @@ export const fetchWarehouses = createAsyncThunk(
   "warehouses/fetchWarehouses",
   async (body, thunkApi) => {
     try {
-      const res = await getData(body);
-      console.log(res);
+      const { data } = await getData(body);
 
-      if (res.data?.length === "0") {
-        throw new Error(`Вибачте, відділення відсутні!`);
-      }
-      if (res.errorCodes.length > 0) {
+      if (data?.data?.length === 0 || data?.errorCodes.length > 0) {
         throw new Error(`Щось пішло не так. Спробуйте пізніше!`);
       }
 
-      return res;
+      return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

@@ -25,8 +25,7 @@ const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
     if (name === "parcel") {
       const regex = /^[25]\d{13}$/;
       errorText = regex.test(value)
-        ? // && value.length === 14
-          ""
+        ? ""
         : "Номер має включати тільки 14 цифр і починатись з 2 або з 5";
       setError(errorText);
     } else if (name === "location") {

@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import {
   selectIsLoading,
   selectError,
-  selectCurrentPage,
   selectWarehouses,
 } from "../../redux/warehouses/selectors";
 import { fetchWarehouses } from "../../redux/warehouses/operations";
@@ -18,27 +17,32 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
-const body = createBody("Київ");
+const body = createBody();
 
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-
   const { data } = useSelector(selectWarehouses);
 
   useEffect(() => {
     dispatch(fetchWarehouses(body));
-    dispatch(setCityQuery(body.methodProperties.CityName));
-    // dispatch(setCityQuery(cityName));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (body) {
+      const { CityName, Page } = body.methodProperties;
+
+      dispatch(setCityQuery(CityName));
+      dispatch(setCurrentPage(Page));
+    }
   }, [dispatch]);
 
   const handleSearchFormSubmit = (value) => {
-    const body = createBody(value);
-
-    dispatch(fetchWarehouses(body));
-    dispatch(setCityQuery(value));
     dispatch(setCurrentPage(1));
+    dispatch(setCityQuery(value));
+    const body = createBody(value);
+    dispatch(fetchWarehouses(body));
   };
 
   return (
