@@ -1,8 +1,32 @@
-# React + Vite
+# Parcel tracking service
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/105170538/236946232-864d4a11-0d21-45da-ad80-e4cc8a245ddb.png" alt="my banner">
+</p>
 
-Currently, two official plugins are available:
+<h3 align="center">
+Hi there, I'm Hanna! 👋
+</h3>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h2 align="center">
+This is my test-task 💻!
+</h2>
+
+## 🌱 About this project
+
+- [Techical Requirements](https://docs.google.com/presentation/d/1ijcRHtZ6GhJphTsFL9JJOrEPKGCI9EykAyqyxfyWnCA/edit#slide=id.g89488fde73_0_8);
+- [API documentation](https://developers.novaposhta.ua/documentation)
+
+
+## 💼 Used technologies
+
+This task was implemented with Vite, React, Redux Toolkit,
+MUI, emotion, Axios, React Router
+
+- 💬 If you have any questions/feedback, please do not hesitate to reach out to
+  me!
+
+### 🤝 Contact me:
+
+<a href="https://www.linkedin.com/in/hanna-konchakovska/"><img align="left" src="https://raw.githubusercontent.com/yushi1007/yushi1007/main/images/linkedin.svg" alt="Hanna | LinkedIn" width="21px"/></a>
+
