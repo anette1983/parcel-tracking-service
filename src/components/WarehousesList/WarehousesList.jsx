@@ -19,8 +19,8 @@ function WarehousesList() {
       )}
       <List
         sx={{
-          width: "80%",
-          maxWidth: 720,
+          width: "90%",
+          // maxWidth: 720,
           bgcolor: "background.paper",
           margin: "0 auto",
           borderRadius: "4px",

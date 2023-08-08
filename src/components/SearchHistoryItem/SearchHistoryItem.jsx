@@ -14,6 +14,7 @@ import {
 } from "../../redux/parcels/parcelsSlice";
 import { fetchParcel } from "../../redux/parcels/operations";
 import { Tooltip } from "@mui/material";
+import Loader from "../Loader/Loader";
 
 function SearchHistoryItem({ parcel }) {
   const isLoading = useSelector(selectIsLoading);
@@ -25,15 +26,9 @@ function SearchHistoryItem({ parcel }) {
     event.stopPropagation();
     setDelId(id);
     dispatch(deleteParcelFromList(id));
-
-    console.log(id);
-    console.log("Клік на видалення");
-
     alert(`Parcel deleted successfully`);
     return;
   };
-
-  console.log(parcel);
 
   const handleItemClick = (parcel) => {
     const body = {
@@ -56,7 +51,7 @@ function SearchHistoryItem({ parcel }) {
 
   return (
     <>
-      {isLoading && !error && <h3>Request in progress...</h3>}
+      {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
       <ListItem
         sx={{

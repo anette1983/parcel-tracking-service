@@ -11,6 +11,9 @@ export const fetchWarehouses = createAsyncThunk(
       if (res.data?.length === "0") {
         throw new Error(`Вибачте, відділення відсутні!`);
       }
+      if (res.errorCodes.length > 0) {
+        throw new Error(`Щось пішло не так. Спробуйте пізніше!`);
+      }
 
       return res;
     } catch (error) {
