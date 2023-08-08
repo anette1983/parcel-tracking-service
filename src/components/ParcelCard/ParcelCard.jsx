@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -47,8 +48,9 @@ export default function ParcelCard({ parcelInfo, onClose }) {
   const isDataAvailable = StatusCode === "3";
 
   return (
-    <Card sx={{ width: "80%", maxWidth: 720 }}>
+    <Card sx={{ width: "90%", maxWidth: 720, marginBottom: 2 }}>
       <CardHeader
+        // sx={{ paddingBottom: 1 }}
         action={
           <Tooltip title="Закрити картку">
             <IconButton
@@ -75,7 +77,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
       </CardContent>
       <Divider variant="middle" />
 
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={{ paddingLeft: 2 }}>
         <Typography textAlign="right">Деталі відправлення:</Typography>
         <ExpandMore
           expand={expanded}
@@ -91,7 +93,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Divider variant="middle">Відправлено</Divider>
-          <Typography>
+          <Typography mt={2} mb={2}>
             {SenderAddress ? SenderAddress : "Адреса: немає даних"}
           </Typography>
           <Typography paragraph variant="body2" color="text.secondary">
@@ -99,7 +101,7 @@ export default function ParcelCard({ parcelInfo, onClose }) {
           </Typography>
 
           <Divider variant="middle">Отримано</Divider>
-          <Typography>
+          <Typography mt={2} mb={2}>
             {RecipientAddress ? RecipientAddress : "Адреса: немає даних"}
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -111,3 +113,8 @@ export default function ParcelCard({ parcelInfo, onClose }) {
     </Card>
   );
 }
+
+ParcelCard.propTypes = {
+  parcelInfo: PropTypes.object,
+  onClose: PropTypes.func,
+};

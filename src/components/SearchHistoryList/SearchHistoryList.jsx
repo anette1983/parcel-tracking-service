@@ -18,20 +18,22 @@ function SearchHistoryList() {
   return (
     <>
       <Box
+        mt={3}
+        mb={3}
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          width: "80%",
+          width: "90%",
           maxWidth: 720,
         }}
       >
-        <Typography variant="h6" component="h2" mt={3} mb={3} ml={2}>
+        <Typography variant="h6" component="h2" ml={2}>
           {" "}
           Історія пошуку{" "}
         </Typography>
         <Button
-          sx={{ height: 57, minWidth: "fit-content" }}
+          sx={{ height: 55, minWidth: "fit-content" }}
           type="button"
           variant="outlined"
           startIcon={<HighlightOffOutlinedIcon />}
@@ -42,7 +44,7 @@ function SearchHistoryList() {
       </Box>
       <List
         sx={{
-          width: "80%",
+          width: "90%",
           maxWidth: 720,
           bgcolor: "background.paper",
           borderRadius: "4px",

@@ -11,10 +11,8 @@ export const StyledContainer = styled.div`
 `;
 
 export const StyledWrapper = styled.main`
- 
-  margin: 0 auto; */
-  min-width: 325px;
-  padding: 0 16px 24px;
+  min-width: 375px;
+  padding: 0 16px 32px;
 `;
 
 export const StyledHeader = styled.header`
@@ -26,7 +24,7 @@ export const StyledHeader = styled.header`
     display: flex;
     align-items: center;
   }
-  & li {
+  & li:not(:last-child) {
     margin-right: 32px;
   }
 `;

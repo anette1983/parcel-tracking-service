@@ -7,6 +7,8 @@ import { store, persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
   // palette: {
@@ -41,6 +43,18 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ThemeProvider theme={theme}>
             <App />
           </ThemeProvider>
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </PersistGate>
       </BrowserRouter>
     </Provider>

@@ -40,10 +40,9 @@ function WarehousesItem({ warehouse }) {
     </>
   );
 }
-// SearchHistoryItem.propTypes = {
-//   id: PropTypes.string,
-//   name: PropTypes.string,
-//   number: PropTypes.string,
-// };
+
+WarehousesItem.propTypes = {
+  warehouse: PropTypes.object,
+};
 
 export default WarehousesItem;
