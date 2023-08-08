@@ -29,6 +29,7 @@ const Home = () => {
   const parcelQuery = useSelector(selectParcelQuery);
 
   const parcelInfo = useSelector(selectSingleParcelData);
+ 
 
   const handleParcelCardClose = () => {
     dispatch(deleteParcel());
@@ -51,7 +52,7 @@ const Home = () => {
     };
 
     dispatch(fetchParcel(body));
-    
+
     dispatch(setParcelsList(value));
     dispatch(setParcelQuery(value));
   };

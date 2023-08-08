@@ -1,10 +1,12 @@
 import { Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import StyledForm from "./SearchForm.styled";
 import Button from "@mui/material/Button";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { useSelector } from "react-redux";
 import { selectParcelQuery } from "../../redux/parcels/selectors";
+import { toast } from "react-toastify";
 
 const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
   const parcelQuery = useSelector(selectParcelQuery);
@@ -41,7 +43,7 @@ const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!value) {
-      alert(label);
+      toast.info(label);
       return;
     }
     if (validate()) {
@@ -68,7 +70,7 @@ const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
         />
       </Grid>
       <Button
-        sx={{ height: 57, minWidth: "fit-content" }}
+        sx={{ height: 55, minWidth: "fit-content" }}
         type="submit"
         variant="outlined"
         startIcon={<SearchOutlinedIcon />}
@@ -81,3 +83,9 @@ const SearchForm = ({ name, label, handleSearchFormSubmit }) => {
 };
 
 export default SearchForm;
+
+SearchForm.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  handleSearchFormSubmit: PropTypes.func,
+};

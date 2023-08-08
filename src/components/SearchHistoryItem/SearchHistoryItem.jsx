@@ -15,6 +15,7 @@ import {
 import { fetchParcel } from "../../redux/parcels/operations";
 import { Tooltip } from "@mui/material";
 import Loader from "../Loader/Loader";
+import { toast } from "react-toastify";
 
 function SearchHistoryItem({ parcel }) {
   const isLoading = useSelector(selectIsLoading);
@@ -26,7 +27,7 @@ function SearchHistoryItem({ parcel }) {
     event.stopPropagation();
     setDelId(id);
     dispatch(deleteParcelFromList(id));
-    alert(`Parcel deleted successfully`);
+    toast.info(`Parcel deleted successfully`);
     return;
   };
 
@@ -80,9 +81,7 @@ function SearchHistoryItem({ parcel }) {
   );
 }
 SearchHistoryItem.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
+  parcel: PropTypes.string,
 };
 
 export default SearchHistoryItem;

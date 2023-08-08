@@ -4,6 +4,7 @@ import {
   selectIsLoading,
   selectError,
   selectWarehouses,
+  selectCurrentPage,
 } from "../../redux/warehouses/selectors";
 import { fetchWarehouses } from "../../redux/warehouses/operations";
 import { useEffect } from "react";
@@ -17,6 +18,7 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
+
 const body = createBody();
 
 const Warehouses = () => {
@@ -24,6 +26,10 @@ const Warehouses = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const { data } = useSelector(selectWarehouses);
+  const page = useSelector(selectCurrentPage);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
 
   useEffect(() => {
     dispatch(fetchWarehouses(body));
