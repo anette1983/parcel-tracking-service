@@ -9,6 +9,7 @@ import {
 
 import SvgIcon from "@mui/material/SvgIcon";
 import { ReactComponent as NpIcon } from "../../images/nova_poshta.svg";
+import Loader from "../Loader/Loader";
 
 const Layout = () => {
   const location = useLocation();
@@ -35,7 +36,7 @@ const Layout = () => {
         </nav>
       </StyledHeader>
       <StyledWrapper>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loader/>}>
           <Outlet />
         </Suspense>
       </StyledWrapper>

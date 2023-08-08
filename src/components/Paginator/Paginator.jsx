@@ -14,9 +14,6 @@ import { createBody } from "../../services/createBody";
 
 export default function Paginator() {
   const currentPage = useSelector(selectCurrentPage);
-
-  // const [page, setPage] = useState(currentPage);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const { info } = useSelector(selectWarehouses);
 
@@ -29,23 +26,15 @@ export default function Paginator() {
     if (info && typeof info?.totalCount === "number") {
       const { totalCount } = info;
       setTotalPages(Math.ceil(totalCount / limit));
-      // setPage(currentPage);
-      setPage(page);
     }
-  }, [currentPage, info, page]);
-
-  // useEffect(() => {
-  //   setPage(currentPage);
-  // }, [currentPage]);
+  }, [dispatch, info]);
 
   useEffect(() => {
-    const body = createBody(city, page); // Calculate the body here
+    const body = createBody(city, currentPage);
     dispatch(fetchWarehouses(body));
-  }, [city, page, dispatch]);
+  }, [city, currentPage, dispatch]);
 
-  // const count = totalPages/
   const handleChange = (event, value) => {
-    setPage(value);
     dispatch(setCurrentPage(value));
   };
 
@@ -62,7 +51,7 @@ export default function Paginator() {
         <Stack spacing={2}>
           <Pagination
             count={totalPages}
-            page={page}
+            page={currentPage}
             variant="outlined"
             shape="rounded"
             onChange={handleChange}

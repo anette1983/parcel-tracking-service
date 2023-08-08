@@ -51,6 +51,7 @@ const Home = () => {
     };
 
     dispatch(fetchParcel(body));
+    
     dispatch(setParcelsList(value));
     dispatch(setParcelQuery(value));
   };
