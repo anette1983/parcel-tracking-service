@@ -29,7 +29,6 @@ const Home = () => {
   const parcelQuery = useSelector(selectParcelQuery);
 
   const parcelInfo = useSelector(selectSingleParcelData);
- 
 
   const handleParcelCardClose = () => {
     dispatch(deleteParcel());
@@ -70,13 +69,17 @@ const Home = () => {
         label={"Введіть номер ТТН"}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
-      {isLoading && !error && <Loader />}
-      {error && <p>{error}</p>}
 
+      {error && <p>{error}</p>}
       {parcelQuery !== "" && (
         <ParcelCard parcelInfo={parcelInfo} onClose={handleParcelCardClose} />
       )}
-      {isHistoryShown && <SearchHistoryList />}
+      {isLoading && !error ? (
+        <Loader />
+      ) : (
+        isHistoryShown && <SearchHistoryList />
+      )}
+
     </HelmetProvider>
   );
 };

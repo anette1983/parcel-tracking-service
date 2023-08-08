@@ -27,7 +27,7 @@ function SearchHistoryItem({ parcel }) {
     event.stopPropagation();
     setDelId(id);
     dispatch(deleteParcelFromList(id));
-    toast.info(`Parcel deleted successfully`);
+    toast.info(`Відправлення успішно видалено!`);
     return;
   };
 

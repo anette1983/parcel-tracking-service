@@ -18,7 +18,6 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
-
 const body = createBody();
 
 const Warehouses = () => {
@@ -61,8 +60,8 @@ const Warehouses = () => {
         label={"Введіть населений пункт"}
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
-      {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
+      {isLoading && !error && <Loader />}
       {!error && <WarehousesList />}
       {data && <Paginator />}
     </HelmetProvider>

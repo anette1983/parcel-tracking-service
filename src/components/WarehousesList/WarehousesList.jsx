@@ -6,9 +6,11 @@ import { Typography } from "@mui/material";
 import { selectWarehouses } from "../../redux/warehouses/selectors";
 import WarehousesItem from "../WarehousesItem/WarehousesItem";
 
+
+
 function WarehousesList() {
   const { data, info } = useSelector(selectWarehouses);
-
+  
   return (
     <>
       {data && (
