@@ -5,9 +5,11 @@ import {
   selectError,
   selectWarehouses,
   selectCurrentPage,
+  selectCityQuery,
 } from "../../redux/warehouses/selectors";
 import { fetchWarehouses } from "../../redux/warehouses/operations";
-import { useEffect } from "react";
+import { useEffect, useMemo, useRef } from "react";
+
 import SearchForm from "../../components/SearchForm/SearchForm";
 import {
   setCityQuery,
@@ -18,36 +20,34 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
-const body = createBody();
-
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const { data } = useSelector(selectWarehouses);
   const page = useSelector(selectCurrentPage);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [page]);
+  const city = useSelector(selectCityQuery);
+  const memoizedBody = useMemo(() => createBody(city, page), [city, page]);
+  const previousBodyRef = useRef(memoizedBody);
 
   useEffect(() => {
-    dispatch(fetchWarehouses(body));
+    dispatch(setCityQuery("Київ"));
+    dispatch(setCurrentPage(1));
   }, [dispatch]);
 
   useEffect(() => {
-    if (body) {
-      const { CityName, Page } = body.methodProperties;
-
-      dispatch(setCityQuery(CityName));
-      dispatch(setCurrentPage(Page));
+    if (memoizedBody !== previousBodyRef.current) {
+      window.scrollTo(0, 0);
+      dispatch(fetchWarehouses(memoizedBody));
+      dispatch(setCityQuery(memoizedBody.methodProperties.CityName));
+      dispatch(setCurrentPage(memoizedBody.methodProperties.Page));
+      previousBodyRef.current = memoizedBody;
     }
-  }, [dispatch]);
+  }, [dispatch, memoizedBody, city, page]);
 
   const handleSearchFormSubmit = (value) => {
     dispatch(setCurrentPage(1));
     dispatch(setCityQuery(value));
-    const body = createBody(value);
-    dispatch(fetchWarehouses(body));
   };
 
   return (
@@ -61,9 +61,12 @@ const Warehouses = () => {
         handleSearchFormSubmit={handleSearchFormSubmit}
       />
       {error && <p>{error}</p>}
-      {isLoading && !error && <Loader />}
-      {!error && <WarehousesList />}
-      {data && <Paginator />}
+      {isLoading && !error ? (
+        <Loader />
+      ) : (
+        !isLoading && data && <WarehousesList />
+      )}
+      {!isLoading && data && <Paginator />}
     </HelmetProvider>
   );
 };

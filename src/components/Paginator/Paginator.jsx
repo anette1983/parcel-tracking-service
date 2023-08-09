@@ -4,21 +4,15 @@ import Stack from "@mui/material/Stack";
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCityQuery,
   selectCurrentPage,
   selectWarehouses,
 } from "../../redux/warehouses/selectors";
 import { setCurrentPage } from "../../redux/warehouses/warehousesSlice";
-import { fetchWarehouses } from "../../redux/warehouses/operations";
-import { createBody } from "../../services/createBody";
 
 export default function Paginator() {
   const currentPage = useSelector(selectCurrentPage);
   const [totalPages, setTotalPages] = useState(0);
   const { info } = useSelector(selectWarehouses);
-
-  const city = useSelector(selectCityQuery);
-
   const limit = 50;
   const dispatch = useDispatch();
 
@@ -28,11 +22,6 @@ export default function Paginator() {
       setTotalPages(Math.ceil(totalCount / limit));
     }
   }, [dispatch, info]);
-
-  useEffect(() => {
-    const body = createBody(city, currentPage);
-    dispatch(fetchWarehouses(body));
-  }, [city, currentPage, dispatch]);
 
   const handleChange = (event, value) => {
     dispatch(setCurrentPage(value));
