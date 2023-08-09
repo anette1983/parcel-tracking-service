@@ -1,42 +1,54 @@
-import { Suspense } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import {
-  StyledContainer,
-  StyledHeader,
-  StyledNavLink,
-  StyledWrapper,
-} from "./Layout.styled";
-
-import SvgIcon from "@mui/material/SvgIcon";
-import { ReactComponent as NpIcon } from "../../images/nova_poshta.svg";
+import { Suspense, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { StyledContainer, StyledHeader, StyledWrapper } from "./Layout.styled";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
 import Loader from "../Loader/Loader";
+import PropTypes from "prop-types";
+import Header from "../Header/Header";
+import MobileDrawer from "../MobileDrawer/MobileDrawer";
 
-const Layout = () => {
-  const location = useLocation();
-  const from = location?.state?.from ?? "/";
+const drawerWidth = 240;
+
+const Layout = (props) => {
+  const { window } = props;
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen((prevState) => !prevState);
+  };
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+
   return (
     <StyledContainer>
       <StyledHeader>
-        <nav>
-          <ul>
-            <li>
-              <SvgIcon color="secondary" component={StyledNavLink} to="/">
-                <NpIcon />
-              </SvgIcon>
-            </li>
-            <li>
-              <StyledNavLink to="/">Знайти посилку</StyledNavLink>
-            </li>
-            <li>
-              <StyledNavLink to="/warehouses" state={{ from: from }}>
-                Список відділень
-              </StyledNavLink>
-            </li>
-          </ul>
-        </nav>
+        <Header handleDrawerToggle={handleDrawerToggle} />
       </StyledHeader>
+      <Box component="nav">
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          <MobileDrawer handleDrawerToggle={handleDrawerToggle} />
+        </Drawer>
+      </Box>
       <StyledWrapper>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </StyledWrapper>
@@ -45,3 +57,7 @@ const Layout = () => {
 };
 
 export default Layout;
+
+Layout.propTypes = {
+  window: PropTypes.func,
+};

@@ -61,7 +61,13 @@ const Home = () => {
       <Helmet>
         <title>Відправлення</title>
       </Helmet>
-      <Typography variant="h4" component="h1" mt={2} mb={2}>
+      <Typography
+        variant="h4"
+        component="h1"
+        mt={2}
+        mb={2}
+        sx={{ fontSize: { xs: "1.825rem", sm: "2.125rem" } }}
+      >
         Пошук відправлень
       </Typography>
       <SearchForm
@@ -79,7 +85,6 @@ const Home = () => {
       ) : (
         isHistoryShown && <SearchHistoryList />
       )}
-
     </HelmetProvider>
   );
 };

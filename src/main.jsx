@@ -1,24 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { App } from "./components/App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { store, persistor } from "./redux/store.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { ThemeProvider, createTheme } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
-  // palette: {
-  //   primary: {
-  //     main: "#ffffff",
-  //   },
-  //   secondary: {
-  //     main: "#005B74",
-  //   },
-  // },
   typography: {
     fontFamily: [
       " ui - rounded",
