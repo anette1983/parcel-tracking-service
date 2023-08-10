@@ -20,8 +20,6 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
-// const body = createBody();
-
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
