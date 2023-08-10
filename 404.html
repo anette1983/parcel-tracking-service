@@ -1,27 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Warehouses</title>
+    <title>404 - Page Not Found</title>
     <script type="text/javascript">
-      var pathSegmentsToKeep = 1;
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          "//" +
-          l.hostname +
-          (l.port ? ":" + l.port : "") +
-          l.pathname
-            .split("/")
-            .slice(0, 1 + pathSegmentsToKeep)
-            .join("/") +
-          "/?/" +
-          l.pathname.slice(1).split("/").slice(pathSegmentsToKeep).join("/").replace(/&/g, "~and~") +
-          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-          l.hash
-      );
+      const isPage404 = document.body.getAttribute("data-page-404");
+
+      if (!isPage404) {
+        if (window.location.pathname.includes("/warehouses")) {
+          window.location.href = "/parcel-tracking-service/warehouses";
+        } else {
+          window.location.href = "/parcel-tracking-service";
+        }
+      }
     </script>
   </head>
-  <body></body>
+  <body data-page-404="true">
+    If you are not redirected,
+    <a href="/parcel-tracking-service">click here</a>.
+  </body>
 </html>
