@@ -4,6 +4,6 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/parcel-tracking-service/",
+  base: "/parcel-tracking-service",
   plugins: [react(), svgr()],
 });
