@@ -11,8 +11,11 @@ import Typography from "@mui/material/Typography";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Divider, Tooltip } from "@mui/material";
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "../../redux/parcels/selectors";
 
 const ExpandMore = styled((props) => {
+  // eslint-disable-next-line no-unused-vars
   const { expand, ...other } = props;
 
   return <IconButton {...other} />;
@@ -26,13 +29,14 @@ const ExpandMore = styled((props) => {
 
 export default function ParcelCard({ parcelInfo, onClose }) {
   const [expanded, setExpanded] = React.useState(false);
+  const isLoading = useSelector(selectIsLoading);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  if (!parcelInfo) {
-    return <div>No parcel information available.</div>;
+  if (!parcelInfo && !isLoading) {
+    return <div>Немає інформації.</div>;
   }
   const {
     Number,
