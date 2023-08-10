@@ -4,12 +4,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { StyledNavLink } from "../../components/Layout/Layout.styled";
 import SvgIcon from "@mui/material/SvgIcon";
 import { ReactComponent as NpIcon } from "../../images/nova_poshta.svg";
-import { useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
 
 const Header = ({ handleDrawerToggle }) => {
-  const location = useLocation();
-  const from = location?.state?.from ?? "/";
   return (
     <nav>
       <IconButton
@@ -42,9 +39,7 @@ const Header = ({ handleDrawerToggle }) => {
             <StyledNavLink to="/">Знайти посилку</StyledNavLink>
           </li>
           <li>
-            <StyledNavLink to="/warehouses" state={{ from: from }}>
-              Список відділень
-            </StyledNavLink>
+            <StyledNavLink to="/warehouses">Список відділень</StyledNavLink>
           </li>
         </ul>
       </Box>
