@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <title>404 - Page Not Found</title>
     <script type="text/javascript">
-      window.location.href = "/parcel-tracking-service";
+      if (window.location.pathname.includes("/warehouses")) {
+        window.location.href = "/parcel-tracking-service/warehouses";
+      } else {
+        window.location.href = "/parcel-tracking-service";
+      }
     </script>
   </head>
   <body>
