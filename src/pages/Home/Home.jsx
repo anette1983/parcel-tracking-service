@@ -49,7 +49,7 @@ const Home = () => {
         ],
       },
     };
-
+    
     dispatch(fetchParcel(body));
 
     dispatch(setParcelsList(value));
@@ -77,9 +77,13 @@ const Home = () => {
       />
 
       {error && <p>{error}</p>}
-      {parcelQuery !== "" && (
-        <ParcelCard parcelInfo={parcelInfo} onClose={handleParcelCardClose} />
-      )}
+      {parcelQuery !== "" &&
+        !isLoading &&
+        (parcelInfo ? (
+          <ParcelCard parcelInfo={parcelInfo} onClose={handleParcelCardClose} />
+        ) : (
+          <div>Немає інформації.</div>
+        ))}
       {isLoading && !error ? (
         <Loader />
       ) : (
