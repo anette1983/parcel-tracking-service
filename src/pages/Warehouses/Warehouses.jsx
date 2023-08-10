@@ -20,6 +20,8 @@ import Paginator from "../../components/Paginator/Paginator";
 import { createBody } from "../../services/createBody";
 import Loader from "../../components/Loader/Loader";
 
+// const body = createBody();
+
 const Warehouses = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
@@ -28,22 +30,21 @@ const Warehouses = () => {
   const page = useSelector(selectCurrentPage);
   const city = useSelector(selectCityQuery);
   const memoizedBody = useMemo(() => createBody(city, page), [city, page]);
-  const previousBodyRef = useRef(memoizedBody);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    dispatch(setCityQuery("Київ"));
-    dispatch(setCurrentPage(1));
+    if (isFirstRender.current) {
+      dispatch(setCityQuery("Київ"));
+      dispatch(setCurrentPage(1));
+
+      isFirstRender.current = false;
+    }
   }, [dispatch]);
 
   useEffect(() => {
-    if (memoizedBody !== previousBodyRef.current) {
-      window.scrollTo(0, 0);
-      dispatch(fetchWarehouses(memoizedBody));
-      dispatch(setCityQuery(memoizedBody.methodProperties.CityName));
-      dispatch(setCurrentPage(memoizedBody.methodProperties.Page));
-      previousBodyRef.current = memoizedBody;
-    }
-  }, [dispatch, memoizedBody, city, page]);
+    window.scrollTo(0, 0);
+    dispatch(fetchWarehouses(memoizedBody));
+  }, [dispatch, memoizedBody]);
 
   const handleSearchFormSubmit = (value) => {
     dispatch(setCurrentPage(1));
