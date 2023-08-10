@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <title>404 - Page Not Found</title>
     <script type="text/javascript">
-      const isPage404 = document.body.getAttribute("data-page-404");
-
-      if (!isPage404) {
-        if (window.location.pathname.includes("/warehouses")) {
-          window.location.href = "/parcel-tracking-service/warehouses";
-        } else {
-          window.location.href = "/parcel-tracking-service";
-        }
+      if (window.location.pathname.includes("/warehouses")) {
+        window.history.replaceState(
+          {},
+          null,
+          "/parcel-tracking-service/warehouses"
+        );
+      } else {
+        window.history.replaceState({}, null, "/parcel-tracking-service");
       }
     </script>
   </head>
-  <body data-page-404="true">
+  <body>
     If you are not redirected,
     <a href="/parcel-tracking-service">click here</a>.
   </body>
