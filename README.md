@@ -9,7 +9,7 @@ Hi there, I'm Hanna! 👋
 </h3>
 
 <h2 align="center">
-This is my test task 💻!
+This is my app 💻!
 </h2>
 
 ## 🌱 About this project
