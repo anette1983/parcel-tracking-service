@@ -4,13 +4,9 @@
   <img src="https://user-images.githubusercontent.com/105170538/236946232-864d4a11-0d21-45da-ad80-e4cc8a245ddb.png" alt="my banner">
 </p>
 
-<h3 align="center">
-Hi there, I'm Hanna! 👋
-</h3>
+<h3 align="center">Hi there, I'm Hanna! 👋</h3>
 
-<h2 align="center">
-This is my app 💻!
-</h2>
+<h3 align="center">This is my app 💻!</h3>
 
 ## 🌱 About this project
 
